@@ -1,1 +1,1 @@
-# capstone-spring-2018-team-1
+# Capstone Spring 2018: Team 1
