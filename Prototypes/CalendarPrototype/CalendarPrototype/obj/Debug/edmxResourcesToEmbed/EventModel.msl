@@ -1,0 +1,21 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="EventDBModelStoreContainer" CdmEntityContainer="EventDBEntities">
+    <EntitySetMapping Name="Events">
+      <EntityTypeMapping TypeName="EventDBModel.Event">
+        <MappingFragment StoreEntitySet="Events">
+          <ScalarProperty Name="EventId" ColumnName="EventId" />
+          <ScalarProperty Name="Organization" ColumnName="Organization" />
+          <ScalarProperty Name="Organization_Division" ColumnName="Organization Division" />
+          <ScalarProperty Name="Start_Time" ColumnName="Start Time" />
+          <ScalarProperty Name="End_Time" ColumnName="End Time" />
+          <ScalarProperty Name="Requestor" ColumnName="Requestor" />
+          <ScalarProperty Name="Requestor_s_Department" ColumnName="Requestor's Department" />
+          <ScalarProperty Name="Requestor_s_Phone" ColumnName="Requestor's Phone" />
+          <ScalarProperty Name="ThemeColor" ColumnName="ThemeColor" />
+          <ScalarProperty Name="IsFullDay" ColumnName="IsFullDay" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>
