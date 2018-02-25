@@ -1,0 +1,2 @@
+C:\Users\matthew schwarz\Documents\GitHub\capstone-spring-2018-team-1\Prototypes\CalendarPrototype\obj\x86\Debug\calendarProto.csprojResolveAssemblyReference.cache
+C:\Users\matthew schwarz\Documents\GitHub\capstone-spring-2018-team-1\Prototypes\CalendarPrototype\obj\x86\Debug\calendarProto.csproj.CoreCompileInputs.cache
