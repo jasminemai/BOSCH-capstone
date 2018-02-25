@@ -57,6 +57,9 @@
                 function GenerateCalender(events) {
                     $('#calender').fullCalendar('destroy');
                     $('#calender').fullCalendar({
+                        weekends: false  //hides weekends from being able to be clicked
+                    });
+                    $('#calender').fullCalendar({
                         contentHeight: 400,
                         defaultDate: new Date(),
                         timeFormat: 'h(:mm)a',
