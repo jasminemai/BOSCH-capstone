@@ -1,0 +1,21 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="EventDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="Event">
+    <Key>
+      <PropertyRef Name="EventId" />
+    </Key>
+    <Property Name="EventId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Organization" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Organization_Division" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="Start_Time" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="End_Time" Type="DateTime" Precision="3" />
+    <Property Name="Requestor" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Requestor_s_Department" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Requestor_s_Phone" Type="String" MaxLength="15" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="ThemeColor" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+    <Property Name="IsFullDay" Type="Boolean" Nullable="false" />
+  </EntityType>
+  <EntityContainer Name="EventDBEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Events" EntityType="Self.Event" />
+  </EntityContainer>
+</Schema>
