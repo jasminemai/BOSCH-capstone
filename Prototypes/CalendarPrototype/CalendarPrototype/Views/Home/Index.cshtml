@@ -5,6 +5,7 @@
     <h2>Index</h2>
     <div id="calender"></div>
      
+    <!-- bootstrap model for displaying the pop up info when event is clicked-->
     <div id="myModal" class="modal fade" role="dialog">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -28,7 +29,7 @@
     @section Scripts{
         <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script>
         <script src="//cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.4.0/fullcalendar.min.js"></script>
-     
+        <!-- Javascript that sets up the calendar-->
         <script>
             $(document).ready(function () {
                 var events = [];
@@ -53,7 +54,7 @@
                         alert('failed');
                     }
                 })
-     
+                //Javascript fullcalendar function that generates the calendar with the events in the parameter
                 function GenerateCalender(events) {
                     $('#calender').fullCalendar('destroy');
                    
@@ -69,6 +70,7 @@
                         eventLimit: true,
                         eventColor: '#378006',
                         events: events,
+                        //gives a function for when an event is clicked 
                         eventClick: function (calEvent, jsEvent, view) {                       
                             $('#myModal #eventTitle').text(calEvent.title);
                             var $description = $('<div/>');
