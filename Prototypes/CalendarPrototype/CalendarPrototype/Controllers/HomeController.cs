@@ -14,6 +14,7 @@ namespace CalendarPrototype.Controllers
             return View();
         }
 
+        //gets events from the database as a JSONResult
         public JsonResult GetEvents()
         {
             using (EventDBEntities1 dc = new EventDBEntities1())
@@ -23,5 +24,41 @@ namespace CalendarPrototype.Controllers
             } 
 
         }
+        [HttpPost]
+        public JsonResult SaveEvent(Event evnt){
+            var status = false;
+            using (EventDBEntities1 dc = new EventDBEntities1())
+            {
+                //this runs if you are updating an event instead of adding a new event
+                if(evnt.EventId > 0)
+                {
+                    //Update the event
+                    var temp = dc.Events.Where(a => a.EventId == evnt.EventId).FirstOrDefault();
+                    if(temp != null)
+                    {
+                        temp.endTime = evnt.endTime;
+                        temp.IsFullDay = evnt.IsFullDay;
+                        temp.Organization = evnt.Organization;
+                        temp.Organization_Division = evnt.Organization_Division;
+                        temp.Requestor = evnt.Requestor;
+                        temp.requestorDepartment = evnt.requestorDepartment;
+                        temp.requestorPhone = evnt.requestorPhone;
+                        temp.start = evnt.start;
+                        temp.ThemeColor = evnt.ThemeColor;
+                    }
+                }
+                else
+                {
+                    dc.Events.Add(evnt);
+                }
+                dc.SaveChanges();
+                status = true;
+            }
+            return new JsonResult
+            {
+                Data = new { status = status }
+            };
+        }
+
     }
 }
