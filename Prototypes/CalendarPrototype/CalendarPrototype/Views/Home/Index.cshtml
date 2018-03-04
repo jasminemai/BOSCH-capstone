@@ -208,6 +208,32 @@
                     }
                 })
             }
+            //functionality for edit button, calls openForm method and will update
+            $('#btnEdit').click(function () {
+                openForm();
+            })
+
+            //delete button functionality
+            $('#btnDelete').click(function () {
+                if (selected != null && confirm('Are you certain you want to delete this event?')) {
+                    //ajax call to delete event
+                    $.ajax({
+                        type: "POST",
+                        url: '/home/DeleteEvent',
+                        data: { 'eventID': selected.eventID },
+                        success: function (data) {
+                            if (data.status) {
+                                //reload the calender to show the changes
+                                grabEventAndCreateCalendar();
+                                $('#myModal').modal('hide');
+                            }
+                        },
+                        error: function () {
+                            alert('AJAX Post Failed');
+                        }
+                    })
+                }
+            })
             //function to open user input form and allow for user to input fields
             function openForm() {
                 //if selected != null, get the values stored for each item.
