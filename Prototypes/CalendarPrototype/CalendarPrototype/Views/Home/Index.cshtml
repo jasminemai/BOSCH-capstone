@@ -58,9 +58,10 @@
                         <label>Start Time</label>
                         <div class="input-group date" id="dateTime1">
                             <input type="text" id="startTime" class="form-control" />
-                            <span class="input-group-addon">
+                           <!-- <span class="input-group-addon">
                                 <span class="glyphicon glyphicon-calendar"></span>
                             </span>
+                               -->
                         </div>
                     </div>
                     <!--Input for selecting if the item is a full day event, if it is an end time is not needed to be shown-->
@@ -70,13 +71,15 @@
                         </div>
                     </div>
                     <!--Input for End Time, if isFullDayCheck is checked, then this will not display-->
-                    <div class="form-group" id="end1" style="display:none">
+                    <!--<div class="form-group" id="end1" style="display:none"> -->
+                    <div class="form-group">
                         <label>End Time</label>
                         <div class="input-group date" id="dateTime2">
                             <input type="text" id="endTime" class="form-control" />
-                            <span class="input-group-addon">
+                            <!--<span class="input-group-addon">
                                 <span class="glyphicon glyphicon-calendar"></span>
                             </span>
+                                -->
                         </div>
                     </div>
                     <!--Input for Requestors Name-->
@@ -213,10 +216,12 @@
                     $('#hidEventID').val(selected.eventID);
                     $('#selectOrganization').val(selected.title);
                     $('#selectOrgGroup').val(selected.description);
-                    $('#startTime').val(selected.start);
+                   // $('#startTime').val(selected.start.format('DD/MM/YYYY HH:mm A'));
+                    $('#startTime').val(selected.start.format('HH:mm A'));
                     $('#isFullDayCheck').prop("checked", selected.allDay || false);
                     $('#isFullDayCheck').change();
-                    $('#endTime').val(selected.end != null ? selected.end.format('DD/MM/YYYY HH:mm A') : '');
+                    //$('#endTime').val(selected.end != null ? selected.end.format('DD/MM/YYYY HH:mm A') : '');
+                    $('#endTime').val(selected.end.format('HH:mm A'));
                     $('#selectEventColor').val(selected.color);
                 }
                 $('#myModal').modal('hide');
