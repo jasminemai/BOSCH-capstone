@@ -234,6 +234,15 @@
                     })
                 }
             })
+
+            //TODO: Implement functionality so if is full day is checked, then the end time dissapears
+            /*
+            $('#isFullDayCheck').change(function () ){
+                if ($(this).is(':checked')) {
+
+                }
+            }
+            */
             //function to open user input form and allow for user to input fields
             function openForm() {
                 //if selected != null, get the values stored for each item.
@@ -254,6 +263,25 @@
                 $('#newEventModal').modal();
             }
 
+            //function to submit event data to the database
+            function SubmitEvent(data) {
+                //ajax Post
+                $.ajax({
+                    type: "POST",
+                    url: '/home/SaveEvent',
+                    data: data,
+                    success: function (data) {
+                        if (data.status) {
+                            //Update Calendar with new event(s)
+                            grabEventAndCreateCalendar();
+                            $('#newEventModal').modal('hide');
+                        }
+                    },
+                    error: function () {
+                        alert('Adding New Event Failed');
+                    }
+                })
+            }
         })
     </script>
 }
