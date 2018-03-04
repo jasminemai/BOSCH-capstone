@@ -205,6 +205,24 @@
                     }
                 })
             }
+            //function to open user input form and allow for user to input fields
+            function openForm() {
+                //if selected != null, get the values stored for each item.
+                //TODO: Fix items and add in all of database contents
+                if (selected != null) {
+                    $('#hidEventID').val(selected.eventID);
+                    $('#selectOrganization').val(selected.title);
+                    $('#selectOrgGroup').val(selected.description);
+                    $('#startTime').val(selected.start);
+                    $('#isFullDayCheck').prop("checked", selected.allDay || false);
+                    $('#isFullDayCheck').change();
+                    $('#endTime').val(selected.end != null ? selected.end.format('DD/MM/YYYY HH:mm A') : '');
+                    $('#selectEventColor').val(selected.color);
+                }
+                $('#myModal').modal('hide');
+                $('#newEventModal').modal();
+            }
+
         })
     </script>
 }
