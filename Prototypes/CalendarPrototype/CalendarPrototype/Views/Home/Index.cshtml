@@ -187,6 +187,22 @@
 
                         $('#myModal').modal();
                     },
+                    //give default info for the popup form, and then open the input form for the user
+                    selectable: true,
+                    select: function (start, end) {
+                        selected = {
+                            eventID: 0,
+                            title: '',
+                            description: '',
+                            start: start,
+                            end: end,
+                            allDay: false,
+                            color: ''
+                        };
+                        //TODO: Implement openForm
+                        openForm();
+                        $('#calendar').fullCalendar('unselect');
+                    }
                 })
             }
         })
