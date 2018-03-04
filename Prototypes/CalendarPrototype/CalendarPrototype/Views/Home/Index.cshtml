@@ -125,27 +125,37 @@
     <script>
         $(document).ready(function () {
             var events = [];
-            $.ajax({
-                type: "GET",
-                url: "/home/GetEvents",
-                success: function (data) {
-                    $.each(data, function (i, v) {
-                        events.push({
-                            title: v.Organization,
-                            description: v.Organization_Division,
-                            start: moment(v.start),
-                            end: v.endTime != null ? moment(v.endTime) : null,
-                            color: v.ThemeColor,
-                            allDay: v.IsFullDay
-                        });
-                    })
+            var selected = null;
+            grabEventAndCreateCalendar();
+            //grabs info from entity database connection and puts it into calendar to generate. 
+            //Can be called to regenerate calendar when events are added/removed or edited
+            function grabEventAndCreateCalendar() {
+                events = [];
+                $.ajax({
+                    type: "GET",
+                    url: "/home/GetEvents",
+                    success: function (data) {
+                        $.each(data, function (i, v) {
+                            events.push({
+                                eventID: v.eventID,
+                                title: v.Organization,
+                                description: v.Organization_Division,
+                                start: moment(v.start),
+                                end: v.endTime != null ? moment(v.endTime) : null,
+                                color: v.ThemeColor,
+                                allDay: v.IsFullDay
+                            });
+                        })
 
-                    GenerateCalender(events);
-                },
-                error: function (error) {
-                    alert('failed');
-                }
-            })
+                        GenerateCalender(events);
+                    },
+                    error: function (error) {
+                        alert('failed');
+                    }
+                })
+
+            }
+            
             //Javascript fullcalendar function that generates the calendar with the events in the parameter
             function GenerateCalender(events) {
                 $('#calender').fullCalendar('destroy');
