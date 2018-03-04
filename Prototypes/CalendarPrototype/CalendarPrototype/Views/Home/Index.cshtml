@@ -131,6 +131,7 @@
             //Can be called to regenerate calendar when events are added/removed or edited
             function grabEventAndCreateCalendar() {
                 events = [];
+                //ajax request
                 $.ajax({
                     type: "GET",
                     url: "/home/GetEvents",
@@ -174,6 +175,7 @@
                     events: events,
                     //gives a function for when an event is clicked
                     eventClick: function (calEvent, jsEvent, view) {
+                        selected = calEvent;
                         $('#myModal #eventTitle').text(calEvent.title);
                         var $description = $('<div/>');
                         $description.append($('<p/>').html('<b>Start:</b>' + calEvent.start.format("DD-MMM-YYYY HH:mm a")));
@@ -184,7 +186,7 @@
                         $('#myModal #pDetails').empty().html($description);
 
                         $('#myModal').modal();
-                    }
+                    },
                 })
             }
         })
