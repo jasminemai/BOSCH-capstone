@@ -1,97 +1,182 @@
-﻿    @{
-        ViewBag.Title = "Index";
-    }
-     
-    <h2>Index</h2>
-    <div id="calender"></div>
-     
-    <!-- bootstrap model for displaying the pop up info when event is clicked-->
-    <div id="myModal" class="modal fade" role="dialog">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal">&times;</button>
-                    <h4 class="modal-title"><span id="eventTitle"></span></h4>
-                </div>
-                <div class="modal-body">
-                    <!-- Adding a button to delete and edit content in the calendar-->
-                    <button id="btnDelete" class="btn btn-default btn-sm pull-right">
-                        <span class="glyphicon glyphicon-remove"></span> Remove
-                    </button> 
-                    <button id="btnEdit" class="btn btn-default btn-sm pull-right" style="margin-right:5px;">
-                        <span class="glyphicon glyphicon-pencil"></span> Edit
-                    </button>
-                    <p id="pDetails"></p>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                </div>
+﻿@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+<div id="calender"></div>
+
+<!-- bootstrap model for displaying the pop up info when event is clicked-->
+<div id="myModal" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title"><span id="eventTitle"></span></h4>
+            </div>
+            <div class="modal-body">
+                <!-- Adding a button to delete and edit content in the calendar-->
+                <button id="btnDelete" class="btn btn-default btn-sm pull-right">
+                    <span class="glyphicon glyphicon-remove"></span> Remove
+                </button>
+                <button id="btnEdit" class="btn btn-default btn-sm pull-right" style="margin-right:5px;">
+                    <span class="glyphicon glyphicon-pencil"></span> Edit
+                </button>
+                <p id="pDetails"></p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
             </div>
         </div>
     </div>
-     
-    <link href="//cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.4.0/fullcalendar.min.css" rel="stylesheet" />
-    <link href="//cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.4.0/fullcalendar.print.css" rel="stylesheet" media="print"/>
-     
-    @section Scripts{
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script>
-        <script src="//cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.4.0/fullcalendar.min.js"></script>
-        <!-- Javascript that sets up the calendar-->
-        <script>
-            $(document).ready(function () {
-                var events = [];
-                $.ajax({
-                    type: "GET",
-                    url: "/home/GetEvents",
-                    success: function (data) {
-                        $.each(data, function (i, v) {
-                            events.push({
-                                title: v.Organization,
-                                description: v.Organization_Division,
-                                start: moment(v.start),
-                                end: v.endTime != null ? moment(v.endTime) : null,
-                                color: v.ThemeColor,
-                                allDay : v.IsFullDay
-                            });
-                        })
-     
-                        GenerateCalender(events);
-                    },
-                    error: function (error) {
-                        alert('failed');
-                    }
-                })
-                //Javascript fullcalendar function that generates the calendar with the events in the parameter
-                function GenerateCalender(events) {
-                    $('#calender').fullCalendar('destroy');
-                   
-                    $('#calender').fullCalendar({
-                        contentHeight: 400,
-                        defaultDate: new Date(),
-                        timeFormat: 'h(:mm)a',
-                        header: {
-                            left: 'prev,next today',
-                            center: 'title',
-                            right: 'month,basicWeek,basicDay,agenda'
-                        },
-                        eventLimit: true,
-                        eventColor: '#378006',
-                        events: events,
-                        //gives a function for when an event is clicked 
-                        eventClick: function (calEvent, jsEvent, view) {                       
-                            $('#myModal #eventTitle').text(calEvent.title);
-                            var $description = $('<div/>');
-                            $description.append($('<p/>').html('<b>Start:</b>' + calEvent.start.format("DD-MMM-YYYY HH:mm a")));
-                            if (calEvent.end != null) {
-                                $description.append($('<p/>').html('<b>End:</b>' + calEvent.end.format("DD-MMM-YYYY HH:mm a")));
-                            }
-                            $description.append($('<p/>').html('<b>Description:</b>' + calEvent.description));
-                            $('#myModal #pDetails').empty().html($description);
-     
-                            $('#myModal').modal();
-                        }
+</div>
+
+<!-- here is where the pop up screen for input is at-->
+<div id="newEventModal" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <!-- closes dialog if the close button is pressed-->
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Save Event</h4>
+            </div>
+            <div class="modal-body">
+                <form class="form-horizontal">
+                    <input type="hidden" id="hidEventID" value="0" />
+                    <div class="form-group">
+                        <!--Input for the organization booking the event-->
+                        <label>Organization</label>
+                        <!--TODO: This input type is temporary! To allow for a dropdown box to select from preexisting organizations, simply remove the input type of text and have no input type! -->
+                        <!--The selection choices must be shown using the <option> tag for each one-->
+                        <input type="text" id="selectOrganization" class="form-control" />
+                    </div>
+                    <div class="form-group">
+                        <label>Organization Group</label>
+                        <input type="text" id="selectOrgGroup" class="form-control" />
+                    </div>
+                    <!--Input for start time. It uses the bootstrap datetimepicker (included below) to make selecting the time easier(CAN BE CHANGED)-->
+                    <div class="form-group">
+                        <label>Start Time</label>
+                        <div class="input-group date" id="dateTime1">
+                            <input type="text" id="startTime" class="form-control" />
+                            <span class="input-group-addon">
+                                <span class="glyphicon glyphicon-calendar"></span>
+                            </span>
+                        </div>
+                    </div>
+                    <!--Input for selecting if the item is a full day event, if it is an end time is not needed to be shown-->
+                    <div class="form-group">
+                        <div class="checkbox">
+                            <label><input type="checkbox" id="isFullDayCheck" checked="checked" />Select if a Full Day Event</label>
+                        </div>
+                    </div>
+                    <!--Input for End Time, if isFullDayCheck is checked, then this will not display-->
+                    <div class="form-group" id="end1" style="display:none">
+                        <label>End Time</label>
+                        <div class="input-group date" id="dateTime2">
+                            <input type="text" id="endTime" class="form-control" />
+                            <span class="input-group-addon">
+                                <span class="glyphicon glyphicon-calendar"></span>
+                            </span>
+                        </div>
+                    </div>
+                    <!--Input for Requestors Name-->
+                    <div class="form-group">
+                        <label>Requestor</label>
+                        <input type="text" id="requestorInput" class="form-control" />
+                    </div>
+                    <!--TODO: Input for Requestor Department and other fields needed for creating an event-->
+                    <!--Text Input area for Purpose of visit-->
+                    <div class="form-group">
+                        <label>Purpose</label>
+                        <textarea id="PurposeInput" rows="3" class="form-control"></textarea>
+                    </div>
+                    <!--Adds a selectable color for the Event. This is purely aesthetic and can be removed if wanted-->
+                    <div class="form-group">
+                        <label>Event Color</label>
+                        <select id="selectEventColor" class="form-control">
+                            <option value="">Default</option>
+                            <option value="red">Red</option>
+                            <option value="blue">Blue</option>
+                            <option value="black">Black</option>
+                            <option value="green">Green</option>
+                        </select>
+                    </div>
+                    <!--buttons for saving the input and closing/dismissing the popup-->
+                    <button type="button" id="btnSave" class="btn btn-success">Save</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--Imports the fullcalendar css and the bootstrap datetimepicker css-->
+<link href="//cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.4.0/fullcalendar.min.css" rel="stylesheet" />
+<link href="//cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.4.0/fullcalendar.print.css" rel="stylesheet" media="print" />
+<link href="//cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.47/css/bootstrap-datetimepicker.min.css" rel="stylesheet" />
+
+
+@section Scripts{
+    <!--Imports the needed JavaScript plugins: FullCalendar.min.js, moment.min.js (for time management), and bootstrap datetimepicker.min.js-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.4.0/fullcalendar.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.47/js/bootstrap-datetimepicker.min.js"></script>
+    <!-- Javascript that sets up the calendar-->
+    <script>
+        $(document).ready(function () {
+            var events = [];
+            $.ajax({
+                type: "GET",
+                url: "/home/GetEvents",
+                success: function (data) {
+                    $.each(data, function (i, v) {
+                        events.push({
+                            title: v.Organization,
+                            description: v.Organization_Division,
+                            start: moment(v.start),
+                            end: v.endTime != null ? moment(v.endTime) : null,
+                            color: v.ThemeColor,
+                            allDay: v.IsFullDay
+                        });
                     })
+
+                    GenerateCalender(events);
+                },
+                error: function (error) {
+                    alert('failed');
                 }
             })
-        </script>
-    }
+            //Javascript fullcalendar function that generates the calendar with the events in the parameter
+            function GenerateCalender(events) {
+                $('#calender').fullCalendar('destroy');
+
+                $('#calender').fullCalendar({
+                    contentHeight: 400,
+                    defaultDate: new Date(),
+                    timeFormat: 'h(:mm)a',
+                    header: {
+                        left: 'prev,next today',
+                        center: 'title',
+                        right: 'month,basicWeek,basicDay,agenda'
+                    },
+                    eventLimit: true,
+                    eventColor: '#378006',
+                    events: events,
+                    //gives a function for when an event is clicked
+                    eventClick: function (calEvent, jsEvent, view) {
+                        $('#myModal #eventTitle').text(calEvent.title);
+                        var $description = $('<div/>');
+                        $description.append($('<p/>').html('<b>Start:</b>' + calEvent.start.format("DD-MMM-YYYY HH:mm a")));
+                        if (calEvent.end != null) {
+                            $description.append($('<p/>').html('<b>End:</b>' + calEvent.end.format("DD-MMM-YYYY HH:mm a")));
+                        }
+                        $description.append($('<p/>').html('<b>Description:</b>' + calEvent.description));
+                        $('#myModal #pDetails').empty().html($description);
+
+                        $('#myModal').modal();
+                    }
+                })
+            }
+        })
+    </script>
+}
