@@ -221,8 +221,8 @@
                     $.ajax({
                         type: "POST",
                         url: '/home/DeleteEvent',
-                        //data: { 'eventID': selected.eventID },
-                        data: { 'eventID': selected.EventID },
+                        data: { 'eventID': selected.eventID },
+                        //data: { 'eventID': selected.EventID },
                         success: function (data) {
                             if (data.status) {
                                 //reload the calender to show the changes
@@ -302,7 +302,7 @@
                 }
                 //get data to send to SubmitEvent method
                 var eventInfo = {
-                    EventID: $('#hidEventID').val(),
+                    eventID: $('#hidEventID').val(),
                     Organization: $('#selectOrganization').val().trim(),
                     Organization_Division: $('#selectOrgGroup').val().trim(),
                     Requestor: $('#requestorInput').val().trim(),
