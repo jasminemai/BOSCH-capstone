@@ -147,6 +147,7 @@
                                 title: v.Organization,
                                 description: v.Organization_Division,
                                 Requestor: v.Requestor,
+                                //Purpose: v.Purpose,
                                 start: moment(v.start),
                                 end: v.endTime != null ? moment(v.endTime) : null,
                                 color: v.ThemeColor,
@@ -192,6 +193,7 @@
                         $description.append($('<p/>').html('<b>Description:</b>' + calEvent.description));
                         //append the Requestors name
                         $description.append($('<p/>').html('<b>Requestor:</b>' + calEvent.Requestor));
+                        //$description.append($('<p/>').html('<b>Purpose:</b>' + calEvent.Purpose));
                         $('#myModal #pDetails').empty().html($description);
 
                         $('#myModal').modal();
