@@ -182,9 +182,9 @@
                         selected = calEvent;
                         $('#myModal #eventTitle').text(calEvent.title);
                         var $description = $('<div/>');
-                        $description.append($('<p/>').html('<b>Start:</b>' + calEvent.start.format("DD-MMM-YYYY HH:mm a")));
+                        $description.append($('<p/>').html('<b>Start:</b>' + calEvent.start.format("DD-MMM-YYYY HH:mm A")));
                         if (calEvent.end != null) {
-                            $description.append($('<p/>').html('<b>End:</b>' + calEvent.end.format("DD-MMM-YYYY HH:mm a")));
+                            $description.append($('<p/>').html('<b>End:</b>' + calEvent.end.format("DD-MMM-YYYY HH:mm A")));
                         }
                         $description.append($('<p/>').html('<b>Description:</b>' + calEvent.description));
                         $('#myModal #pDetails').empty().html($description);
@@ -257,9 +257,9 @@
                    // $('#startTime').val(selected.start.format('HH:mm A'));
                     $('#isFullDayCheck').prop("checked", selected.allDay || false);
                     $('#isFullDayCheck').change();
-                    //$('#endTime').val(selected.end != null ? selected.end.format('DD/MM/YYYY HH:mm A') : '');
+                    $('#endTime').val(selected.end != null ? selected.end.format('DD/MM/YYYY HH:mm A') : '');
                     //$('#endTime').val(selected.end.format('HH:mm A'));
-                    $('#endTime').val(selected.end.format('DD/MM/YYYY HH:mm A'));
+                    //$('#endTime').val(selected.end.format('DD/MM/YYYY HH:mm A'));
                     $('#selectEventColor').val(selected.color);
                 }
                 $('#myModal').modal('hide');
