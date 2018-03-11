@@ -143,7 +143,7 @@
                     success: function (data) {
                         $.each(data, function (i, v) {
                             events.push({
-                                eventID: v.eventID,
+                                eventID: v.EventId,
                                 title: v.Organization,
                                 description: v.Organization_Division,
                                 Requestor: v.Requestor,
@@ -329,7 +329,7 @@
                 //get data to send to SubmitEvent method
 
                 var eventInfo = {
-                    EventID: $('#hidEventID').val(),
+                    EventId: $('#hidEventID').val(),
                     Organization: $('#selectOrganization').val().trim(),
                     Organization_Division: $('#selectOrgGroup').val().trim(),
                     Requestor: $('#requestorInput').val().trim(),
