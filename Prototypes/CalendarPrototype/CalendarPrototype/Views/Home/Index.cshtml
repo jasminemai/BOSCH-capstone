@@ -72,7 +72,7 @@
                     </div>
                     <!--Input for End Time, if isFullDayCheck is checked, then this will not display-->
                     <!--<div class="form-group" id="end1" style="display:none"> -->
-                    <div class="form-group">
+                    <div class="form-group" id="endDateForm" style="display:none">
                         <label>End Time</label>
                         <div class="input-group date" id="dateTime2">
                             <input type="text" id="endTime" class="form-control" />
@@ -241,13 +241,15 @@
             })
 
             //TODO: Implement functionality so if is full day is checked, then the end time dissapears
-            /*
-            $('#isFullDayCheck').change(function () ){
+            //event handler which runs when full day checkbox is checked or unchecked
+            $('#isFullDayCheck').change(function () {
                 if ($(this).is(':checked')) {
-
+                    $('#endDateForm').hide();
+                } else {
+                    $('#endDateForm').show();
                 }
-            }
-            */
+            })
+            
             //function to open user input form and allow for user to input fields
             function openForm() {
                 //if selected != null, get the values stored for each item.
@@ -258,7 +260,7 @@
                     $('#selectOrgGroup').val(selected.description);
                     $('#requestorInput').val(selected.Requestor);
                     $('#startTime').val(selected.start.format('DD/MM/YYYY HH:mm A'));
-                   // $('#startTime').val(selected.start.format('HH:mm A'));
+                    //$('#startTime').val(selected.start.format('HH:mm A'));
                     $('#isFullDayCheck').prop("checked", selected.allDay || false);
                     $('#isFullDayCheck').change();
                     $('#endTime').val(selected.end != null ? selected.end.format('DD/MM/YYYY HH:mm A') : '');
@@ -293,10 +295,12 @@
                     alert('Start Time is Required');
                     return;
                 }
-                if ($('#isFullDayCheck').is(':checked') == false && $('#endTime').val.trim() == "") {
+                if ($('#isFullDayCheck').is(':checked') == false && $('#endTime').val().trim() == "") {
                     alert('End Time is Required');
                     return;
                 } else {
+                    //var startTime = moment($('#startTime').val(), "DD/MM/YYYY HH:mm A").toDate();
+                    //var endTime = moment($('#endTime').val(), "DD/MM/YYYY HH:mm A").toDate();
                     var startTime = moment($('#startTime').val(), "DD/MM/YYYY HH:mm A").toDate();
                     var endTime = moment($('#endTime').val(), "DD/MM/YYYY HH:mm A").toDate();
                     if (startTime > endTime) {
