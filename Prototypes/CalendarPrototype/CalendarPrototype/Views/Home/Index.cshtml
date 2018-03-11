@@ -144,6 +144,7 @@
                                 eventID: v.eventID,
                                 title: v.Organization,
                                 description: v.Organization_Division,
+                                Requestor: v.Requestor,
                                 start: moment(v.start),
                                 end: v.endTime != null ? moment(v.endTime) : null,
                                 color: v.ThemeColor,
@@ -220,7 +221,8 @@
                     $.ajax({
                         type: "POST",
                         url: '/home/DeleteEvent',
-                        data: { 'eventID': selected.eventID },
+                        //data: { 'eventID': selected.eventID },
+                        data: { 'eventID': selected.EventID },
                         success: function (data) {
                             if (data.status) {
                                 //reload the calender to show the changes
@@ -229,7 +231,7 @@
                             }
                         },
                         error: function () {
-                            alert('AJAX Post Failed');
+                            alert('Delete Failed');
                         }
                     })
                 }
@@ -251,12 +253,13 @@
                     $('#hidEventID').val(selected.eventID);
                     $('#selectOrganization').val(selected.title);
                     $('#selectOrgGroup').val(selected.description);
-                   // $('#startTime').val(selected.start.format('DD/MM/YYYY HH:mm A'));
-                    $('#startTime').val(selected.start.format('HH:mm A'));
+                    $('#startTime').val(selected.start.format('DD/MM/YYYY HH:mm A'));
+                   // $('#startTime').val(selected.start.format('HH:mm A'));
                     $('#isFullDayCheck').prop("checked", selected.allDay || false);
                     $('#isFullDayCheck').change();
                     //$('#endTime').val(selected.end != null ? selected.end.format('DD/MM/YYYY HH:mm A') : '');
-                    $('#endTime').val(selected.end.format('HH:mm A'));
+                    //$('#endTime').val(selected.end.format('HH:mm A'));
+                    $('#endTime').val(selected.end.format('DD/MM/YYYY HH:mm A'));
                     $('#selectEventColor').val(selected.color);
                 }
                 $('#myModal').modal('hide');
@@ -264,6 +267,55 @@
             }
 
             //TODO: Add event for clicking save button to add a new event (Make sure all inputs are valid)
+            $('#btnSave').click(function () {
+                //validate input is all there 
+                if ($('#selectOrganization').val().trim() == "") {
+                    alert('Organization is Required');
+                    return;
+                }
+                if ($('#selectOrgGroup').val().trim() == "") {
+                    alert('Organization Group is Required');
+                    return;
+                }
+                if ($('#requestorInput').val().trim() == "") {
+                    alert('Requestor Name is Required');
+                    return;
+                }
+                if ($('#PurposeInput').val().trim() == "") {
+                    alert('A Visit Purpose is Required');
+                    return;
+                }
+                if ($('#startTime').val().trim() == "") {
+                    alert('Start Time is Required');
+                    return;
+                }
+                if ($('#isFullDayCheck').is(':checked') == false && $('#endTime').val.trim() == "") {
+                    alert('End Time is Required');
+                    return;
+                } else {
+                    var startTime = moment($('#startTime').val(), "DD/MM/YYYY HH:mm A").toDate();
+                    var endTime = moment($('#endTime').val(), "DD/MM/YYYY HH:mm A").toDate();
+                    if (startTime > endTime) {
+                        alert("Invalid End Time");
+                        return;
+                    }
+                }
+                //get data to send to SubmitEvent method
+                var eventInfo = {
+                    EventID: $('#hidEventID').val(),
+                    Organization: $('#selectOrganization').val().trim(),
+                    Organization_Division: $('#selectOrgGroup').val().trim(),
+                    Requestor: $('#requestorInput').val().trim(),
+                    start: $('#startTime').val().trim(),
+                    endTime: $('#endTime').val().trim(),
+                    ThemeColor: $('#selectEventColor').val(),
+                    IsFullDay: $('#isFullDayCheck').is(':checked')
+                }
+                //submit event info to SubmitEvent
+                SubmitEvent(eventInfo);
+                alert('Data Submitted');
+            })
+
 
             //function to submit event data to the database
             function SubmitEvent(data) {

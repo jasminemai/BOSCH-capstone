@@ -46,7 +46,6 @@ C:\Users\matthew schwarz\Documents\GitHub\capstone-spring-2018-team-1\Prototypes
 C:\Users\matthew schwarz\Documents\GitHub\capstone-spring-2018-team-1\Prototypes\CalendarPrototype\CalendarPrototype\bin\System.Web.Webpages.Razor.xml
 C:\Users\matthew schwarz\Documents\GitHub\capstone-spring-2018-team-1\Prototypes\CalendarPrototype\CalendarPrototype\bin\System.Web.Helpers.xml
 C:\Users\matthew schwarz\Documents\GitHub\capstone-spring-2018-team-1\Prototypes\CalendarPrototype\CalendarPrototype\bin\System.Web.Mvc.xml
-C:\Users\matthew schwarz\Documents\GitHub\capstone-spring-2018-team-1\Prototypes\CalendarPrototype\CalendarPrototype\obj\Debug\CalendarPrototype.csprojResolveAssemblyReference.cache
 C:\Users\matthew schwarz\Documents\GitHub\capstone-spring-2018-team-1\Prototypes\CalendarPrototype\CalendarPrototype\obj\Debug\CalendarPrototype.csproj.CoreCompileInputs.cache
 C:\Users\matthew schwarz\Documents\GitHub\capstone-spring-2018-team-1\Prototypes\CalendarPrototype\CalendarPrototype\obj\Debug\CalendarPrototype.dll
 C:\Users\matthew schwarz\Documents\GitHub\capstone-spring-2018-team-1\Prototypes\CalendarPrototype\CalendarPrototype\obj\Debug\CalendarPrototype.pdb

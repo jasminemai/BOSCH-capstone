@@ -1,4 +1,4 @@
-﻿// T4 code generation is enabled for model 'C:\Users\matthew schwarz\source\repos\CalendarPrototype\CalendarPrototype\EventDBEntities.edmx'. 
+﻿// T4 code generation is enabled for model 'C:\Users\matthew schwarz\Documents\GitHub\capstone-spring-2018-team-1\Prototypes\CalendarPrototype\CalendarPrototype\EventDBEntities.edmx'. 
 // To enable legacy code generation, change the value of the 'Code Generation Strategy' designer
 // property to 'Legacy ObjectContext'. This property is available in the Properties Window when the model
 // is open in the designer.
