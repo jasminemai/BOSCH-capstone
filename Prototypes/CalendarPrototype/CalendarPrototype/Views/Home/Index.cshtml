@@ -58,10 +58,11 @@
                         <label>Start Time</label>
                         <div class="input-group date" id="dateTime1">
                             <input type="text" id="startTime" class="form-control" />
-                           <!-- <span class="input-group-addon">
+                            <!--
+                            <span class="input-group-addon">
                                 <span class="glyphicon glyphicon-calendar"></span>
                             </span>
-                               -->
+                                -->
                         </div>
                     </div>
                     <!--Input for selecting if the item is a full day event, if it is an end time is not needed to be shown-->
@@ -76,10 +77,11 @@
                         <label>End Time</label>
                         <div class="input-group date" id="dateTime2">
                             <input type="text" id="endTime" class="form-control" />
-                            <!--<span class="input-group-addon">
+                            <!--
+                            <span class="input-group-addon">
                                 <span class="glyphicon glyphicon-calendar"></span>
                             </span>
-                                -->
+                              --> 
                         </div>
                     </div>
                     <!--Input for Requestors Name-->
@@ -182,9 +184,10 @@
                         selected = calEvent;
                         $('#myModal #eventTitle').text(calEvent.title);
                         var $description = $('<div/>');
-                        $description.append($('<p/>').html('<b>Start:</b>' + calEvent.start.format("DD-MMM-YYYY HH:mm A")));
+                        $description.append($('<p/>').html('<b>Start:</b>' + calEvent.start.format("YYYY-MM-DD HH:mm:ss A")));
+                        //$description.append($('<p/>').html('<b>Start:</b>' + calEvent.start.format("YYYY-MM-DD HH:mm A")));
                         if (calEvent.end != null) {
-                            $description.append($('<p/>').html('<b>End:</b>' + calEvent.end.format("DD-MMM-YYYY HH:mm A")));
+                            $description.append($('<p/>').html('<b>End:</b>' + calEvent.end.format("YYYY-MM-DD HH:mm:ss A")));
                         }
                         $description.append($('<p/>').html('<b>Description:</b>' + calEvent.description));
                         //append the Requestors name
@@ -206,7 +209,7 @@
                             Requestor: '',
                             color: ''
                         };
-                        //TODO: Implement openForm
+                       
                         openForm();
                         $('#calendar').fullCalendar('unselect');
                     }
@@ -240,6 +243,13 @@
                 }
             })
 
+            //TEMPORARY UNTIL GET TIME WORKING OTHER WAY
+            /*
+            $('#dateTime1,#dateTime2').datetimepicker({
+                format: 'DD/MM/YYYY HH:mm A'
+            });
+            */
+
             //TODO: Implement functionality so if is full day is checked, then the end time dissapears
             //event handler which runs when full day checkbox is checked or unchecked
             $('#isFullDayCheck').change(function () {
@@ -259,11 +269,11 @@
                     $('#selectOrganization').val(selected.title);
                     $('#selectOrgGroup').val(selected.description);
                     $('#requestorInput').val(selected.Requestor);
-                    $('#startTime').val(selected.start.format('DD/MM/YYYY HH:mm A'));
+                    $('#startTime').val(selected.start.format('YYYY-MM-DD HH:mm:ss'));
                     //$('#startTime').val(selected.start.format('HH:mm A'));
                     $('#isFullDayCheck').prop("checked", selected.allDay || false);
                     $('#isFullDayCheck').change();
-                    $('#endTime').val(selected.end != null ? selected.end.format('DD/MM/YYYY HH:mm A') : '');
+                    $('#endTime').val(selected.end != null ? selected.end.format('YYYY-MM-DD HH:mm:ss') : '');
                     //$('#endTime').val(selected.end.format('HH:mm A'));
                     //$('#endTime').val(selected.end.format('DD/MM/YYYY HH:mm A'));
                     $('#selectEventColor').val(selected.color);
@@ -274,6 +284,8 @@
 
             //TODO: Add event for clicking save button to add a new event (Make sure all inputs are valid)
             $('#btnSave').click(function () {
+              //  var startTimeString;
+                //var endTimeString;
                 //validate input is all there 
                 if ($('#selectOrganization').val().trim() == "") {
                     alert('Organization is Required');
@@ -299,23 +311,30 @@
                     alert('End Time is Required');
                     return;
                 } else {
-                    //var startTime = moment($('#startTime').val(), "DD/MM/YYYY HH:mm A").toDate();
-                    //var endTime = moment($('#endTime').val(), "DD/MM/YYYY HH:mm A").toDate();
-                    var startTime = moment($('#startTime').val(), "DD/MM/YYYY HH:mm A").toDate();
-                    var endTime = moment($('#endTime').val(), "DD/MM/YYYY HH:mm A").toDate();
+                   // startTimeString = moment($('#startTime').val(), "DD/MM/YYYY HH:mm:ss A").toISOString();
+                    //endTimeString = moment($('#endTime').val(), "DD/MM/YYYY HH:mm:ss A").toISOString();
+                    var startTime = moment($('#startTime').val(), "DD/MM/YYYY HH:mm:ss").toDate();
+                    var endTime = moment($('#endTime').val(), "DD/MM/YYYY HH:mm:ss").toDate();
+                   // moment($('#startTime').val().format("YYYY-MM-DD HH:mm:ss"));
+                    //moment($('#endTime').val().format("YYYY-MM-DD HH:mm:ss"));
+                    //var startTime = moment($('#startTime').val()).format("YYYY-MM-DD HH:mm:ss");
+                    //var endTime = moment($('#endTime').val()).format("YYYY-MM-DD HH:mm:ss");
+                    //alert(startTime);
+                    //alert(startTimeString);
                     if (startTime > endTime) {
                         alert("Invalid End Time");
                         return;
                     }
                 }
                 //get data to send to SubmitEvent method
+
                 var eventInfo = {
-                    eventID: $('#hidEventID').val(),
+                    EventID: $('#hidEventID').val(),
                     Organization: $('#selectOrganization').val().trim(),
                     Organization_Division: $('#selectOrgGroup').val().trim(),
                     Requestor: $('#requestorInput').val().trim(),
                     start: $('#startTime').val().trim(),
-                    endTime: $('#endTime').val().trim(),
+                    endTime: $('#isFullDayCheck').is(':checked') ? null : $('#endTime').val().trim(),
                     ThemeColor: $('#selectEventColor').val(),
                     IsFullDay: $('#isFullDayCheck').is(':checked')
                 }
