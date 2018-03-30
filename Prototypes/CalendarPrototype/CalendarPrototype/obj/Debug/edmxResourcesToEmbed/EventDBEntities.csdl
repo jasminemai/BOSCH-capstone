@@ -14,6 +14,7 @@
     <Property Name="endTime" Type="DateTime" Precision="3" />
     <Property Name="requestorDepartment" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
     <Property Name="requestorPhone" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+    <Property Name="Purpose" Type="String" MaxLength="1000" FixedLength="false" Unicode="false" />
   </EntityType>
   <EntityContainer Name="EventDBEntities1" annotation:LazyLoadingEnabled="true">
     <EntitySet Name="Events" EntityType="Self.Event" />

@@ -24,5 +24,6 @@ namespace CalendarPrototype
         public Nullable<System.DateTime> endTime { get; set; }
         public string requestorDepartment { get; set; }
         public string requestorPhone { get; set; }
+        public string Purpose { get; set; }
     }
 }
