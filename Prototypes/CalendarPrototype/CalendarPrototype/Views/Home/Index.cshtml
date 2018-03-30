@@ -192,17 +192,19 @@
                                 allDay: v.IsFullDay,
                                 Tentative: v.Tentative
                             });
-
-                            //Adding data to the TableContent
-                            TableContent += "<td>" + v.Organization + "</td>" +
-                                "<td>" + v.Organization_Division + "</td>" +
-                                "<td>" + v.Requestor + "</td>" +
-                                "<td>" + v.Purpose + "</td>" +
-                                "<td>" +
-                                "<button type='button' id='btnAccept' class='btn btn- success'>Y</button>" + "  " +
-                                "<button type='button' id='btnDeny' class='btn btn- success'>N</button>" +
-                                "</td>" +
-                                "</tr>";
+                            if (v.Tentative == false) {
+                                //Adding data to the TableContent
+                                TableContent += "<td>" + v.Organization + "</td>" +
+                                    "<td>" + v.Organization_Division + "</td>" +
+                                    "<td>" + v.Requestor + "</td>" +
+                                    "<td>" + v.Purpose + "</td>" +
+                                    "<td>" +
+                                    "<button type='button' id='btnAccept' class='btn btn- success'>Y</button>" + "  " +
+                                    "<button type='button' id='btnDeny' class='btn btn- success'>N</button>" +
+                                    "</td>" +
+                                    "</tr>";
+                            }
+                            
                         })
 
                         //finish the tablecontent table
