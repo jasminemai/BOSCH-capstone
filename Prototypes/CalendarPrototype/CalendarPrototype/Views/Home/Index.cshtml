@@ -97,7 +97,7 @@
                             <span class="input-group-addon">
                                 <span class="glyphicon glyphicon-calendar"></span>
                             </span>
-                              --> 
+                              -->
                         </div>
                     </div>
                     <!--Input for Requestors Name-->
@@ -137,7 +137,7 @@
             var events = [];
             var selected = null;
             grabEventAndCreateCalendar();
-            //grabs info from entity database connection and puts it into calendar to generate. 
+            //grabs info from entity database connection and puts it into calendar to generate.
             //Can be called to regenerate calendar when events are added/removed or edited
             function grabEventAndCreateCalendar() {
                 events = [];
@@ -168,7 +168,7 @@
                 })
 
             }
-            
+
             //Javascript fullcalendar function that generates the calendar with the events in the parameter
             function GenerateCalender(events) {
                 $('#calender').fullCalendar('destroy');
@@ -182,18 +182,9 @@
                     customButtons: {
                         adminLoginButton: {
                             text: 'Admin Login',
-<<<<<<< HEAD
-                            click: function () {
-                                alert('clicked the custom button!');
-=======
                             click: function openAdminLogin() {
-<<<<<<< HEAD
                                 $('#myModal').modal('hide');
                                 $('#admin-login-modal').modal();
-=======
-                                alert("Clicked the admin button!");
->>>>>>> 2f57433bc9d4ee2ee2c2dfee0fb70ce1ebfcf665
->>>>>>> 93869108e1a378c91a45156f6c1ad7abb15c82fd
                             }
                         }
                     },
@@ -201,11 +192,7 @@
                     header: {
                         left: 'prev,next today',
                         center: 'title',
-<<<<<<< HEAD
-                        right: 'month,basicWeek,basicDay,agenda,adminLoginButton'
-=======
                         right: 'month,basicWeek,basicDay,adminLoginButton'
->>>>>>> 2f57433bc9d4ee2ee2c2dfee0fb70ce1ebfcf665
                     },
                     eventLimit: true,
                     eventColor: '#378006',
@@ -242,7 +229,7 @@
                             Requestor: '',
                             color: ''
                         };
-                       
+
                         openForm();
                         $('#calendar').fullCalendar('unselect');
                     }
@@ -250,7 +237,7 @@
             }
 
             //Admin button functionality
-            
+
 
 
             //functionality for edit button, calls openForm method and will update
@@ -297,7 +284,7 @@
                     $('#endDateForm').show();
                 }
             })
-            
+
             //function to open user input form and allow for user to input fields
             function openForm() {
                 //if selected != null, get the values stored for each item.
@@ -323,9 +310,9 @@
 
             //TODO: Add event for clicking save button to add a new event (Make sure all inputs are valid)
             $('#btnSave').click(function () {
-              //  var startTimeString;
+                //  var startTimeString;
                 //var endTimeString;
-                //validate input is all there 
+                //validate input is all there
                 if ($('#selectOrganization').val().trim() == "") {
                     alert('Organization is Required');
                     return;
@@ -350,11 +337,11 @@
                     alert('End Time is Required');
                     return;
                 } else {
-                   // startTimeString = moment($('#startTime').val(), "DD/MM/YYYY HH:mm:ss A").toISOString();
+                    // startTimeString = moment($('#startTime').val(), "DD/MM/YYYY HH:mm:ss A").toISOString();
                     //endTimeString = moment($('#endTime').val(), "DD/MM/YYYY HH:mm:ss A").toISOString();
                     var startTime = moment($('#startTime').val(), "DD/MM/YYYY HH:mm:ss").toDate();
                     var endTime = moment($('#endTime').val(), "DD/MM/YYYY HH:mm:ss").toDate();
-                   // moment($('#startTime').val().format("YYYY-MM-DD HH:mm:ss"));
+                    // moment($('#startTime').val().format("YYYY-MM-DD HH:mm:ss"));
                     //moment($('#endTime').val().format("YYYY-MM-DD HH:mm:ss"));
                     //var startTime = moment($('#startTime').val()).format("YYYY-MM-DD HH:mm:ss");
                     //var endTime = moment($('#endTime').val()).format("YYYY-MM-DD HH:mm:ss");
