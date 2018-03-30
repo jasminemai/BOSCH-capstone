@@ -166,8 +166,8 @@
                     customButtons: {
                         adminLoginButton: {
                             text: 'Admin Login',
-                            click: function () {
-                                alert('clicked the custom button!');
+                            click: function openAdminLogin() {
+                                alert("Clicked the admin button!");
                             }
                         }
                     },
@@ -217,6 +217,11 @@
                     }
                 })
             }
+
+            //Admin button functionality
+            
+
+
             //functionality for edit button, calls openForm method and will update
             $('#btnEdit').click(function () {
                 openForm();
