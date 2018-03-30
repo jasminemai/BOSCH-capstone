@@ -14,6 +14,7 @@
     <Property Name="endTime" Type="datetime" />
     <Property Name="requestorDepartment" Type="nvarchar" MaxLength="100" />
     <Property Name="requestorPhone" Type="varchar" MaxLength="15" />
+    <Property Name="Purpose" Type="varchar" MaxLength="1000" />
   </EntityType>
   <EntityContainer Name="EventDBModelStoreContainer">
     <EntitySet Name="Events" EntityType="Self.Events" Schema="dbo" store:Type="Tables" />

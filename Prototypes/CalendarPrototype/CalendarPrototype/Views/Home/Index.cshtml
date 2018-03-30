@@ -147,7 +147,7 @@
                                 title: v.Organization,
                                 description: v.Organization_Division,
                                 Requestor: v.Requestor,
-                                //Purpose: v.Purpose,
+                                Purpose: v.Purpose,
                                 start: moment(v.start),
                                 end: v.endTime != null ? moment(v.endTime) : null,
                                 color: v.ThemeColor,
@@ -193,7 +193,7 @@
                         $description.append($('<p/>').html('<b>Description:</b>' + calEvent.description));
                         //append the Requestors name
                         $description.append($('<p/>').html('<b>Requestor:</b>' + calEvent.Requestor));
-                        //$description.append($('<p/>').html('<b>Purpose:</b>' + calEvent.Purpose));
+                        $description.append($('<p/>').html('<b>Purpose:</b>' + calEvent.Purpose));
                         $('#myModal #pDetails').empty().html($description);
 
                         $('#myModal').modal();
@@ -208,6 +208,7 @@
                             start: start,
                             end: end,
                             allDay: false,
+                            Purpose: '',
                             Requestor: '',
                             color: ''
                         };
@@ -271,6 +272,7 @@
                     $('#selectOrganization').val(selected.title);
                     $('#selectOrgGroup').val(selected.description);
                     $('#requestorInput').val(selected.Requestor);
+                    $('#Purpose').val(selected.PurposeInput);
                     $('#startTime').val(selected.start.format('YYYY-MM-DD HH:mm:ss'));
                     //$('#startTime').val(selected.start.format('HH:mm A'));
                     $('#isFullDayCheck').prop("checked", selected.allDay || false);
@@ -338,6 +340,7 @@
                     start: $('#startTime').val().trim(),
                     endTime: $('#isFullDayCheck').is(':checked') ? null : $('#endTime').val().trim(),
                     ThemeColor: $('#selectEventColor').val(),
+                    Purpose: $('#PurposeInput').val(),
                     IsFullDay: $('#isFullDayCheck').is(':checked')
                 }
                 //submit event info to SubmitEvent
