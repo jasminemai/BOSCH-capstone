@@ -161,6 +161,17 @@
                     contentHeight: 400,
                     defaultDate: new Date(),
                     timeFormat: 'h(:mm)a',
+
+                    //admin login button
+                    customButtons: {
+                        myCustomButton: {
+                            text: 'Admin Login',
+                            click: function () {
+                                alert('clicked the custom button!');
+                            }
+                        }
+                    },
+
                     header: {
                         left: 'prev,next today',
                         center: 'title',
