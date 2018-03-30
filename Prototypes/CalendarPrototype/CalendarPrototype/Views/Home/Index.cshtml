@@ -167,14 +167,16 @@
                     success: function (data) {
                         //dataPanel update with ajax data pull
                         $("#dataPanel").html("<div style='text-align:center; background-color:yellow; border:1px solid red; padding:3px; width:200px'>Please Wait...</div>");
-                        var TableContent = "<table border='0'>" +
+                        var TableContent = "<table class='table'>" +
+                            "<thead class='thead-dark'>" +
                             "<tr>" +
-                            "<td>EventID</td>" +
-                            "<td>Organization</td>" +
-                            "<td>Organization Group</td>" +
-                            "<td>Requestor</td>" +
-                            "<td>Purpose</td>" +
-                            "</tr>";
+                            "<th>Organization</th>" +
+                            "<th>Organization Group</th>" +
+                            "<th>Requestor</th>" +
+                            "<th>Purpose</th>" +
+                            "<th>Approve/Reject</th>" +
+                            "</tr>" +
+                            "</thead>";
 
                         //regular fullcalender data build
                         $.each(data, function (i, v) {
@@ -191,11 +193,14 @@
                             });
 
                             //Adding data to the TableContent
-                            TableContent += "<td>" + v.EventId + "</td>" +
-                                "<td>" + v.Organization + "</td>" +
+                            TableContent += "<td>" + v.Organization + "</td>" +
                                 "<td>" + v.Organization_Division + "</td>" +
                                 "<td>" + v.Requestor + "</td>" +
                                 "<td>" + v.Purpose + "</td>" +
+                                "<td>" +
+                                "<button type='button' id='btnAccept' class='btn btn- success'>Y</button>" + "  " +
+                                "<button type='button' id='btnDeny' class='btn btn- success'>N</button>" +
+                                "</td>" +
                                 "</tr>";
                         })
 
