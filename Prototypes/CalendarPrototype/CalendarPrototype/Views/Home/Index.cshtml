@@ -166,8 +166,13 @@
                     customButtons: {
                         adminLoginButton: {
                             text: 'Admin Login',
+<<<<<<< HEAD
                             click: function () {
                                 alert('clicked the custom button!');
+=======
+                            click: function openAdminLogin() {
+                                alert("Clicked the admin button!");
+>>>>>>> 2f57433bc9d4ee2ee2c2dfee0fb70ce1ebfcf665
                             }
                         }
                     },
@@ -175,7 +180,11 @@
                     header: {
                         left: 'prev,next today',
                         center: 'title',
+<<<<<<< HEAD
                         right: 'month,basicWeek,basicDay,agenda,adminLoginButton'
+=======
+                        right: 'month,basicWeek,basicDay,adminLoginButton'
+>>>>>>> 2f57433bc9d4ee2ee2c2dfee0fb70ce1ebfcf665
                     },
                     eventLimit: true,
                     eventColor: '#378006',
@@ -218,6 +227,11 @@
                     }
                 })
             }
+
+            //Admin button functionality
+            
+
+
             //functionality for edit button, calls openForm method and will update
             $('#btnEdit').click(function () {
                 openForm();
