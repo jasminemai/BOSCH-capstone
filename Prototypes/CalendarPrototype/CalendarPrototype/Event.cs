@@ -25,5 +25,6 @@ namespace CalendarPrototype
         public string requestorDepartment { get; set; }
         public string requestorPhone { get; set; }
         public string Purpose { get; set; }
+        public Nullable<bool> Tentative { get; set; }
     }
 }

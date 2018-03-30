@@ -189,7 +189,8 @@
                                 start: moment(v.start),
                                 end: v.endTime != null ? moment(v.endTime) : null,
                                 color: v.ThemeColor,
-                                allDay: v.IsFullDay
+                                allDay: v.IsFullDay,
+                                Tentative: v.Tentative
                             });
 
                             //Adding data to the TableContent
@@ -375,6 +376,7 @@
                     alert('Organization Group is Required');
                     return;
                 }
+          
                 if ($('#requestorInput').val().trim() == "") {
                     alert('Requestor Name is Required');
                     return;

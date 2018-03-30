@@ -4,6 +4,7 @@
     <EntitySetMapping Name="Events">
       <EntityTypeMapping TypeName="EventDBModel.Event">
         <MappingFragment StoreEntitySet="Events">
+          <ScalarProperty Name="Tentative" ColumnName="Tentative" />
           <ScalarProperty Name="Purpose" ColumnName="Purpose" />
           <ScalarProperty Name="EventId" ColumnName="EventId" />
           <ScalarProperty Name="Organization" ColumnName="Organization" />

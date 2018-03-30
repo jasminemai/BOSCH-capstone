@@ -20,6 +20,7 @@
           <Property Name="requestorDepartment" Type="nvarchar" MaxLength="100" />
           <Property Name="requestorPhone" Type="varchar" MaxLength="15" />
           <Property Name="Purpose" Type="varchar" MaxLength="1000" />
+          <Property Name="Tentative" Type="bit" />
         </EntityType>
         <EntityContainer Name="EventDBModelStoreContainer">
           <EntitySet Name="Events" EntityType="Self.Events" Schema="dbo" store:Type="Tables" />
@@ -43,6 +44,7 @@
           <Property Name="requestorDepartment" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
           <Property Name="requestorPhone" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
           <Property Name="Purpose" Type="String" MaxLength="1000" FixedLength="false" Unicode="false" />
+          <Property Name="Tentative" Type="Boolean" />
         </EntityType>
         <EntityContainer Name="EventDBEntities1" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Events" EntityType="Self.Event" />
@@ -56,6 +58,7 @@
           <EntitySetMapping Name="Events">
             <EntityTypeMapping TypeName="EventDBModel.Event">
               <MappingFragment StoreEntitySet="Events">
+                <ScalarProperty Name="Tentative" ColumnName="Tentative" />
                 <ScalarProperty Name="Purpose" ColumnName="Purpose" />
                 <ScalarProperty Name="EventId" ColumnName="EventId" />
                 <ScalarProperty Name="Organization" ColumnName="Organization" />

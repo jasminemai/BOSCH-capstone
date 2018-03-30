@@ -42,7 +42,12 @@ namespace CalendarPrototype.Controllers
                         temp.Organization_Division = evnt.Organization_Division;
                         temp.Requestor = evnt.Requestor;
                         temp.Purpose = evnt.Purpose;
-              
+                        temp.Tentative = evnt.Tentative;
+                       /* if(temp.Tentative == null)
+                        {
+                            temp.Tentative = false;
+                        }
+                        */
                        // temp.requestorDepartment = evnt.requestorDepartment;
                        // temp.requestorPhone = evnt.requestorPhone;
                         temp.start = evnt.start;
@@ -51,6 +56,7 @@ namespace CalendarPrototype.Controllers
                 }
                 else
                 {
+                    evnt.Tentative = false;
                     dc.Events.Add(evnt);
                 }
                 dc.SaveChanges();
