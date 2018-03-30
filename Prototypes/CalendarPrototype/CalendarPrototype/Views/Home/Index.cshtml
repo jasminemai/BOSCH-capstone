@@ -30,6 +30,22 @@
     </div>
 </div>
 
+<!-- admin button modal-->
+<div id="admin-login-modal" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-body">
+                <h1>Admin Account Login Form</h1><br>
+                <form class="form-horizontal">
+                    <input type="text" name="user" placeholder="Username">
+                    <input type="password" name="pass" placeholder="Password">
+                    <button type="button" id="btnAdminLogin" class="btn btn-success">Login</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
 <!-- here is where the pop up screen for input is at-->
 <div id="newEventModal" class="modal fade" role="dialog">
     <div class="modal-dialog">
@@ -167,7 +183,8 @@
                         adminLoginButton: {
                             text: 'Admin Login',
                             click: function openAdminLogin() {
-                                alert("Clicked the admin button!");
+                                $('#myModal').modal('hide');
+                                $('#admin-login-modal').modal();
                             }
                         }
                     },
