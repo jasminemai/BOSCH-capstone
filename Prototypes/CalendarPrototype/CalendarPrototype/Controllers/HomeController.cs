@@ -41,6 +41,7 @@ namespace CalendarPrototype.Controllers
                         temp.Organization = evnt.Organization;
                         temp.Organization_Division = evnt.Organization_Division;
                         temp.Requestor = evnt.Requestor;
+                        temp.Purpose = evnt.Purpose;
               
                        // temp.requestorDepartment = evnt.requestorDepartment;
                        // temp.requestorPhone = evnt.requestorPhone;
