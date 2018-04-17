@@ -50,8 +50,8 @@
 
 <!-- admin event list modal-->
 <div id="admin-event-list-modal" class="modal fade" role="dialog">
-    <div class="modal-dialog">
-        <div class="modal-content">
+    <div class="modal-dialog" style="width:50%;margin:0 auto;">
+        <div class="modal-content" >
             <div class="modal-header">
                 <h1>Admin Event List</h1>
             </div>
@@ -155,6 +155,7 @@
         $(document).ready(function () {
             var events = [];
             var selected = null;
+            var counter = 0; //initializing the counter varible here
 
             grabEventAndCreateCalendar();
             //grabs info from entity database connection and puts it into calendar to generate.
@@ -175,6 +176,7 @@
                             "<th>Organization Group</th>" +
                             "<th>Requestor</th>" +
                             "<th>Purpose</th>" +
+                            "<th>Start Time</th>" +
                             "<th>Approve/Reject</th>" +
                             "</tr>" +
                             "</thead>";
@@ -195,15 +197,20 @@
                             });
                             if (v.Tentative == false) {
                                 //Adding data to the TableContent
+                                counter += 1; //increasing the counter variable here
                                 TableContent += "<td>" + v.Organization + "</td>" +
                                     "<td>" + v.Organization_Division + "</td>" +
                                     "<td>" + v.Requestor + "</td>" +
                                     "<td>" + v.Purpose + "</td>" +
+                                    "<td>" + moment(v.startTime) + "</td>" +
                                     "<td>" +
-                                    "<button type='button' id='btnAccept' class='btn btn- success' style='background-color:LightGreen'>Y</button>" + "  " +
-                                    "<button type='button' id='btnDeny' class='btn btn- success' style='background-color:IndianRed'>N</button>" +
+                                    "<button type='button' id='btnAccept" + counter + "' class='btn btn- success' style='background-color:LightGreen' " + "onclick='(function () { alert(this); })()'>Y</button>" + "  " +
+                                    "<button type='button' id='btnDeny" + counter + "' class='btn btn- success' style='background-color:IndianRed' "+"onclick='(function () { alert(this); })()'>N</button>" +
                                     "</td>" +
                                     "</tr>";
+                                /*
+                                 * The counter variable is added the end of the ID to make individual unique IDs. The buttons have 'onclick' added to add javascript code.
+                                 */
                             }
                             
                         })
