@@ -43,11 +43,11 @@ namespace CalendarPrototype.Controllers
                         temp.Requestor = evnt.Requestor;
                         temp.Purpose = evnt.Purpose;
                         temp.Tentative = evnt.Tentative;
-                       /* if(temp.Tentative == null)
+                        if(temp.Tentative == null)
                         {
                             temp.Tentative = false;
                         }
-                        */
+                        
                        // temp.requestorDepartment = evnt.requestorDepartment;
                        // temp.requestorPhone = evnt.requestorPhone;
                         temp.start = evnt.start;
