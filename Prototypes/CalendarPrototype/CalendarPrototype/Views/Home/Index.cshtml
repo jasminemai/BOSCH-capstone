@@ -156,6 +156,7 @@
             var events = [];
             var selected = null;
             var counter = 0; //initializing the counter varible here
+            var currEventInfo;
 
             grabEventAndCreateCalendar();
             //grabs info from entity database connection and puts it into calendar to generate.
@@ -197,7 +198,8 @@
                             });
                             if (v.Tentative == false) {
                                 //data that will be used to update event once approved. Set tenative to true
-                                var currEventInfo = {
+
+                                currEventInfo = {
                                     EventId: v.EventId,
                                     Organization: v.Organization,
                                     Organization_Division: v.Organization_Division,
@@ -209,6 +211,7 @@
                                     IsFullDay: v.IsFullDay,
                                     Tentative: v.Tentative
                                 }
+                                
                                 //Adding data to the TableContent
                                 counter += 1; //increasing the counter variable here
                                 TableContent += "<td>" + v.Organization + "</td>" +
@@ -217,7 +220,7 @@
                                     "<td>" + v.Purpose + "</td>" +
                                     "<td>" + moment(v.startTime) + "</td>" +
                                     "<td>" +
-                                    "<button type='button' id='btnAccept" + counter + "' class='btn btn- success' style='background-color:LightGreen' " + "onclick='(function () { currEventInfo.Tenative : 'True'; SubmitEvent(currEventInfo); })()'>Y</button>" + "  " +
+                                    "<button type='button' id='btnAccept" + counter + "' class='btn btn- success' style='background-color:LightGreen' " + "onclick='(function () { currEventInfo.Tenative : 'True'; ApproveEvent(currEventInfo); })()'>Y</button>" + "  " +
                                     "<button type='button' id='btnDeny" + counter + "' class='btn btn- success' style='background-color:IndianRed' "+"onclick='(function () { alert(this); })()'>N</button>" +
                                     "</td>" +
                                     "</tr>";
@@ -460,7 +463,26 @@
                         if (data.status) {
                             //Update Calendar with new event(s)
                             grabEventAndCreateCalendar();
-                           // $('#newEventModal').modal('hide');
+                            $('#newEventModal').modal('hide');
+                        }
+                    },
+                    error: function () {
+                        alert('Adding New Event Failed');
+                    }
+                })
+            }
+
+            function ApproveEvent(data) {
+                //ajax Post
+                $.ajax({
+                    type: "POST",
+                    url: '/home/SaveEvent',
+                    data: data,
+                    success: function (data) {
+                        if (data.status) {
+                            //Update Calendar with new event(s)
+                            grabEventAndCreateCalendar();
+                            // $('#newEventModal').modal('hide');
                             $('#admin-event-list-modal').modal('hide');
                         }
                     },
