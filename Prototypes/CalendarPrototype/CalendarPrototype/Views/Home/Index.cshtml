@@ -196,6 +196,19 @@
                                 Tentative: v.Tentative
                             });
                             if (v.Tentative == false) {
+                                //data that will be used to update event once approved. Set tenative to true
+                                var currEventInfo = {
+                                    EventId: v.EventId,
+                                    Organization: v.Organization,
+                                    Organization_Division: v.Organization_Division,
+                                    Requestor: v.Requestor,
+                                    start: v.start,
+                                    endTime: v.endTime != null ? moment(v.endTime) : null,
+                                    ThemeColor: v.ThemeColor,
+                                    Purpose: v.Purpose,
+                                    IsFullDay: v.IsFullDay,
+                                    Tentative: v.Tentative
+                                }
                                 //Adding data to the TableContent
                                 counter += 1; //increasing the counter variable here
                                 TableContent += "<td>" + v.Organization + "</td>" +
@@ -204,7 +217,7 @@
                                     "<td>" + v.Purpose + "</td>" +
                                     "<td>" + moment(v.startTime) + "</td>" +
                                     "<td>" +
-                                    "<button type='button' id='btnAccept" + counter + "' class='btn btn- success' style='background-color:LightGreen' " + "onclick='(function () { alert(this); })()'>Y</button>" + "  " +
+                                    "<button type='button' id='btnAccept" + counter + "' class='btn btn- success' style='background-color:LightGreen' " + "onclick='(function () { currEventInfo.Tenative : 'True'; SubmitEvent(currEventInfo); })()'>Y</button>" + "  " +
                                     "<button type='button' id='btnDeny" + counter + "' class='btn btn- success' style='background-color:IndianRed' "+"onclick='(function () { alert(this); })()'>N</button>" +
                                     "</td>" +
                                     "</tr>";
@@ -447,7 +460,8 @@
                         if (data.status) {
                             //Update Calendar with new event(s)
                             grabEventAndCreateCalendar();
-                            $('#newEventModal').modal('hide');
+                           // $('#newEventModal').modal('hide');
+                            $('#admin-event-list-modal').modal('hide');
                         }
                     },
                     error: function () {
