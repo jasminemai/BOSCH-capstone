@@ -39,9 +39,10 @@
             </div>
             <div class="modal-body">
                 <form class="form-horizontal">
-                    <input type="text" name="user" placeholder="Username">
-                    <input type="password" name="pass" placeholder="Password">
-                    <button type="button" id="btnAdminLogin" class="btn btn-success">Login</button>
+                    <input type="text" id="user" placeholder="Username">
+                    <input type="password" id="pass" placeholder="Password">
+                    <button type="button" id="btnAdminLogin" onclick="validate()" class="btn btn-success">Login</button>
+                    <p id="status"></p>
                 </form>
             </div>
         </div>
@@ -372,6 +373,8 @@
                 }
             })
 
+
+
             //function to open user input form and allow for user to input fields
             function openForm() {
                 //if selected != null, get the values stored for each item.
@@ -479,6 +482,7 @@
                 })
             }
 
+
             function ApproveEvent(data) {
                 //ajax Post
                 $.ajax({
@@ -504,5 +508,16 @@
             }
             */
         })
+        function validate() {
+            if (document.getElementById("user").value == "admin"
+                && document.getElementById("pass").value == "password") {
+                alert("validation succeeded");
+                document.getElementById("status").innerHTML = "Log in successful!"
+            }
+            else {
+                alert("validation failed");
+                document.getElementById("status").innerHTML = "Log in failed!"
+            }
+        }
     </script>
 }
