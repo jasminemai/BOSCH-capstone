@@ -43,6 +43,7 @@
                     <input type="password" id="pass" placeholder="Password">
                     <button type="button" id="btnAdminLogin" onclick="validate()" class="btn btn-success">Login</button>
                     <p id="status"></p>
+
                 </form>
             </div>
         </div>
@@ -152,7 +153,7 @@
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.47/js/bootstrap-datetimepicker.min.js"></script>
     <!-- Javascript that sets up the calendar-->
     <script>
-
+        var curStatus = false;
         $(document).ready(function () {
             var events = [];
             var selected = null;
@@ -272,6 +273,7 @@
                         adminListButton: {
                             text: 'Admin List',
                             click: function openAdminList() {
+
                                 $('#myModal').modal('hide');
                                 $('#admin-event-list-modal').modal();
                             }
@@ -512,7 +514,10 @@
             if (document.getElementById("user").value == "admin"
                 && document.getElementById("pass").value == "password") {
                 alert("validation succeeded");
-                document.getElementById("status").innerHTML = "Log in successful!"
+                curStatus = true;
+                document.getElementById("status").innerHTML = "Log in successful!";
+                document.getElementById("adminListButton").disabled = true;
+                
             }
             else {
                 alert("validation failed");
