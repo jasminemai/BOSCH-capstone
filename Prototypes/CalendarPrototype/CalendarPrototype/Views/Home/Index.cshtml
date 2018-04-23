@@ -25,6 +25,12 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button id="btnApprove" class="btn btn-default pull-left">
+                    <span class="glyphicon glyphicon-ok"></span>Approve
+                </button>
+                <button id="btnDeny" class="btn btn-default pull-left">
+                    <span class="glyphicon glyphicon-trash"></span>Reject
+                </button>
             </div>
         </div>
     </div>
@@ -362,6 +368,64 @@
                     }
                 })
             }
+
+            //approve functionality
+            $('#btnApprove').click(function () {
+                //check admin logged in if not notify
+                if (curStatus == true) {
+                    if (selected != null) {
+                        var eventInfo = {
+                            EventId: selected.eventID,
+                            Organization: selected.title,
+                            Organization_Division: selected.description,
+                            Requestor: selected.Requestor,
+                            start: selected.start,
+                            endTime: selected.end,
+                            ThemeColor: selected.color,
+                            Purpose: selected.Purpose,
+                            IsFullDay: selected.allDay,
+                            //  Tenative: true
+                        }
+                        //  selected.Tentative = true;
+                        // confirm('Are you certain you want to approve this event?')
+                        SubmitEvent(eventInfo);
+                        alert('stuff');
+                    } else {
+                        alert('Error');
+                    }
+                } else {
+                    confirm('You must log in as an admin for this functionality');
+                }
+            })
+
+            //deny button
+            $('#btnDeny').click(function () {
+                //check admin status
+                if (curStatus == true) {
+                    if (selected != null && confirm('Are you certain you want to deny approval for this event?')) {
+                        //ajax call to delete event
+                        $.ajax({
+                            type: "POST",
+                            url: '/home/DeleteEvent',
+                            data: { 'eventID': selected.eventID },
+                            //data: { 'eventID': selected.EventID },
+                            success: function (data) {
+                                if (data.status) {
+                                    //reload the calender to show the changes
+                                    grabEventAndCreateCalendar();
+                                    $('#myModal').modal('hide');
+                                }
+                            },
+                            error: function () {
+                                alert('Delete Failed');
+                            }
+                        })
+                    }
+                } else {
+                    confirm('You must log in as an admin for this functionality');
+                }
+            })
+
 
             //functionality for edit button, calls openForm method and will update
             $('#btnEdit').click(function () {
