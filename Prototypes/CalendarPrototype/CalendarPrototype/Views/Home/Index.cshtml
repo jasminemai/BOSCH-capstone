@@ -24,15 +24,15 @@
                 <p id="pDetails"></p>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                <button id="btnApprove" class="btn btn-default pull-left">
-                    <span class="glyphicon glyphicon-ok"></span>Approve
-                </button>
-                <button id="btnDeny" class="btn btn-default pull-left">
-                    <span class="glyphicon glyphicon-trash"></span>Reject
-                </button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <button id="btnApprove" class="btn btn-default pull-left" disabled>
+                        <span class="glyphicon glyphicon-ok"></span>Approve
+                    </button>
+                    <button id="btnDeny" class="btn btn-default pull-left" disabled>
+                        <span class="glyphicon glyphicon-trash"></span>Reject
+                    </button>
+                </div>
             </div>
-        </div>
     </div>
 </div>
 
@@ -614,7 +614,8 @@
                 alert("validation succeeded");
                 curStatus = true;
                 document.getElementById("status").innerHTML = "Log in successful!";
-                document.getElementById("adminListButton").disabled = true;
+                document.getElementById("btnApprove").disabled = false;
+                document.getElementById("btnDeny").disabled = false;
                 
             }
             else {
