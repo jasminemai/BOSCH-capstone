@@ -95,10 +95,10 @@
                         <div class="input-group date" id="dateTime1">
                             <input type="text" id="startTime" class="form-control" />
                             <!--
-                            <span class="input-group-addon">
-                                <span class="glyphicon glyphicon-calendar"></span>
-                            </span>
-                                -->
+            <span class="input-group-addon">
+                <span class="glyphicon glyphicon-calendar"></span>
+            </span>
+                -->
                         </div>
                     </div>
                     <!--Input for selecting if the item is a full day event, if it is an end time is not needed to be shown-->
@@ -114,10 +114,10 @@
                         <div class="input-group date" id="dateTime2">
                             <input type="text" id="endTime" class="form-control" />
                             <!--
-                            <span class="input-group-addon">
-                                <span class="glyphicon glyphicon-calendar"></span>
-                            </span>
-                              -->
+            <span class="input-group-addon">
+                <span class="glyphicon glyphicon-calendar"></span>
+            </span>
+              -->
                         </div>
                     </div>
                     <!--Input for Requestors Name-->
@@ -125,6 +125,8 @@
                         <label>Requestor</label>
                         <input type="text" id="requestorInput" class="form-control" />
                     </div>
+
+                    <input type="file" name="UploadFile" id="txtUploadFile" />
                     <!--TODO: Input for Requestor Department and other fields needed for creating an event-->
                     <!--Text Input area for Purpose of visit-->
                     <div class="form-group">
@@ -154,6 +156,37 @@
     <!-- Javascript that sets up the calendar-->
     <script>
         var curStatus = false;
+        $('#txtUploadFile').on('change', function (e) {
+            var files = e.target.files;
+            //var myID = 3; //uncomment this to make sure the ajax URL works
+            if (files.length > 0) {
+                if (window.FormData !== undefined) {
+                    var data = new FormData();
+                    for (var x = 0; x < files.length; x++) {
+                        data.append("file" + x, files[x]);
+                    }
+
+                    $.ajax({
+                        type: "POST",
+                        url: '/MyController/UploadFile?id=' + myID,
+                        contentType: false,
+                        processData: false,
+                        data: data,
+                        success: function (result) {
+                            console.log(result);
+                        },
+                        error: function (xhr, status, p3, p4) {
+                            var err = "Error " + " " + status + " " + p3 + " " + p4;
+                            if (xhr.responseText && xhr.responseText[0] == "{")
+                                err = JSON.parse(xhr.responseText).Message;
+                            console.log(err);
+                        }
+                    });
+                } else {
+                    alert("This browser doesn't support HTML5 file uploads!");
+                }
+            }
+        });
         $(document).ready(function () {
             var events = [];
             var selected = null;
