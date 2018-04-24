@@ -61,7 +61,7 @@
     <div class="modal-dialog" style="width:50%;margin:0 auto;">
         <div class="modal-content" >
             <div class="modal-header">
-                <h1>Admin Event List</h1>
+                <h1>Pending Events</h1>
             </div>
             <div id="adminEventListModalID" class="modal-body">
                 <!-- Data in this div will be replaced as the calendar builds-->
@@ -225,7 +225,6 @@
                             "<th>Requestor</th>" +
                             "<th>Purpose</th>" +
                             "<th>Start Time</th>" +
-                            "<th>Approve/Reject</th>" +
                             "</tr>" +
                             "</thead>";
 
@@ -266,11 +265,6 @@
                                     "<td>" + v.Requestor + "</td>" +
                                     "<td>" + v.Purpose + "</td>" +
                                     "<td>" + moment(v.startTime) + "</td>" +
-                                    "<td>" +
-                                    "<button type='button' id='btnAccept" + counter + "' class='btn btn- success' style='background-color:LightGreen' " + "onclick='(function () {alert(this);  })()'>Y</button>" + "  " +
-                                //    "<button type='button' id='btnAccept" + counter + "' class='btn btn- success' style='background-color:LightGreen' " + "onclick='(function () { currEventInfo.Tenative : True; ApproveEvent(currEventInfo); })()'>Y</button>" + "  " +
-                                    "<button type='button' id='btnDeny" + counter + "' class='btn btn- success' style='background-color:IndianRed' "+"onclick='(function () { alert(this); })()'>N</button>" +
-                                    "</td>" +
                                     "</tr>";
                                 /*
                                  * The counter variable is added the end of the ID to make individual unique IDs. The buttons have 'onclick' added to add javascript code.
@@ -311,7 +305,7 @@
                             }
                         },
                         adminListButton: {
-                            text: 'Admin List',
+                            text: 'Pending Events',
                             click: function openAdminList() {
 
                                 $('#myModal').modal('hide');
